@@ -36,3 +36,7 @@ class PersonModel:
     def delete_person(self, person_id):
         self.cursor.execute('DELETE FROM crud.person WHERE id = %s', (person_id,))
         self.connection.commit()
+
+    def get_all_persons(self):
+        self.cursor.execute('SELECT * FROM crud.person')
+        return self.cursor.fetchall()

@@ -1,5 +1,5 @@
 # controllers/person_controller.py
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from views.person_view import (
     format_person,
     person_added_response,
@@ -42,3 +42,9 @@ def edit_person(person_id):
 def delete_person(person_id):
     person_model.delete_person(person_id)
     return person_deleted_response()
+
+@person_controller.route('/get_all_persons', methods=['GET'])
+def get_all_persons():
+    persons = person_model.get_all_persons()
+    formatted_persons = [format_person(person) for person in persons]
+    return jsonify(formatted_persons)
